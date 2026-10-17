@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* Fuente pixelada estilo Minecraft */
+body {
+  font-family: "Press Start 2P", "Courier New", monospace;
+  image-rendering: pixelated;
+}
+
+/* Scrollbar personalizado estilo Minecraft */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a3728;
+  border: 1px solid #2d1f14;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4CAF50;
+}
+
+/* Animación de parpadeo para el contador */
+@keyframes pulse-green {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
+  }
+}
+
+/* Animación de entrada */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Selección de texto estilo Minecraft */
+::selection {
+  background: #4CAF50;
+  color: #1a1a1a;
+}
+
+/* Fondo: tierra de Minecraft con textura pixelada */
+body {
+  background-color: #7a4e2f;
+  background-image: url("/img/dirt.png");
+  background-size: 384px 384px;
+  image-rendering: pixelated;
+}
+
+.pixel-bg {
+  image-rendering: pixelated;
+}
+
+.grass-strip {
+  background-image: url("/img/grass.png");
+  background-size: 192px 72px;
+  background-repeat: repeat-x;
+  image-rendering: pixelated;
+}
+
+.font-pixel {
+  font-family: "Press Start 2P", "Courier New", monospace;
+}
+
+/* Los mobs flotan suavemente */
+@keyframes mob-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.mob-float {
+  animation: mob-float 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mob-float { animation: none; }
+}
