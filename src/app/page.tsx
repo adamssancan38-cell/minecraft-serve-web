@@ -3,6 +3,39 @@ import CommentsSection from "@/components/CommentsSection";
 import BackgroundMusic from "@/components/BackgroundMusic";
 import FloatingMobs from "@/components/FloatingMobs";
 
+const TEAM = [
+  {
+    name: "Adams",
+    photo: "adams",
+    role: "⚙️ Developer & Admin",
+    bio: "Creó el sitio, administra el server y es el único con permiso para decir “en mi PC sí funciona”. Si algo se rompe, fue el caché.",
+  },
+  {
+    name: "Jimmy Alaba",
+    photo: "jimmy",
+    role: "🎬 Editor de audio y video",
+    bio: "Corta, pega y le pone música épica a todo. Si el server se cae, lo convierte en un tráiler.",
+  },
+  {
+    name: "Carlos Alberto “Culo Abierto”",
+    photo: "carlos",
+    role: "⚔️ Cofundador",
+    bio: "Jugador promedio: todo chill, todo bacán. Duerme en la cancha con el inventario lleno y si lo invitas a pelear responde “ahorita, déjame descansar”. Cobra en manzanas doradas.",
+  },
+  {
+    name: "Donovan Suárez",
+    photo: "donovan",
+    role: "🤡 Cofundador",
+    bio: "Su foto lo dice todo: llegó para animar el chat. Es el más serio del server, aunque no lo parezca.",
+  },
+  {
+    name: "“Michael Jackson”",
+    photo: "michael",
+    role: "🕺 Cofundador",
+    bio: "Siempre te mira como si supiera lo que hiciste en el server. Aparece de la nada: no se sabe si es moonwalk o lag.",
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
@@ -202,6 +235,48 @@ export default function Home() {
               }}
             >
               <CommentsSection />
+            </div>
+          </div>
+        </section>
+
+        {/* ========== EQUIPO ========== */}
+        <section className="py-12 px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-3">
+              <h2 className="inline-block bg-black/70 px-4 py-2 text-xl sm:text-2xl font-bold text-[#FFC107] font-mono tracking-wider">
+                👑 LOS CREADORES
+              </h2>
+            </div>
+            <p className="text-center mb-10">
+              <span className="inline-block bg-black/70 px-3 py-1 text-[#E0E0E0] font-mono text-sm">
+                Los cofundadores del server (sí, los responsables de todo)
+              </span>
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-6">
+              {TEAM.map((m) => (
+                <article
+                  key={m.name}
+                  className="w-full max-w-[260px] bg-[#2d2d2d] border-4 border-[#4a3728]"
+                  style={{ boxShadow: "inset 2px 2px 0 #3d3d3d, 5px 5px 0 rgba(0,0,0,0.55)" }}
+                >
+                  <img
+                    src={`/img/team/${m.photo}.jpg`}
+                    alt={m.name}
+                    width={260}
+                    height={325}
+                    loading="lazy"
+                    className="w-full aspect-[4/5] object-cover border-b-4 border-[#4a3728]"
+                  />
+                  <div className="p-4 text-center">
+                    <h3 className="font-pixel text-[11px] leading-relaxed text-[#4CAF50] mb-2">{m.name}</h3>
+                    <span className="inline-block bg-[#FFC107] text-black font-mono text-xs font-bold px-2 py-1 mb-3">
+                      {m.role}
+                    </span>
+                    <p className="text-[#E0E0E0] font-mono text-xs leading-relaxed">{m.bio}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
