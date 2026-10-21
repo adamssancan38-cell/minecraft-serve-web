@@ -7,6 +7,7 @@ interface Comment {
   name: string;
   email: string;
   message: string;
+  hasImage?: boolean;
   createdAt: string;
 }
 
@@ -78,6 +79,14 @@ export default function CommentList() {
           <p className="text-[#BDBDBD] font-mono text-sm whitespace-pre-wrap">
             {comment.message}
           </p>
+          {comment.hasImage && (
+            <img
+              src={`/api/comments/${comment.id}/image`}
+              alt="Imagen del comentario"
+              loading="lazy"
+              className="mt-3 block max-h-72 max-w-full border-2 border-[#4a3728]"
+            />
+          )}
         </div>
       ))}
     </div>

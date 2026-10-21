@@ -5,5 +5,7 @@ export const comments = pgTable("comments", {
   name: text("name").notNull(),
   email: text("email").notNull(),
   message: text("message").notNull(),
+  // Imagen o GIF opcional guardado como data URL (data:image/...;base64,...)
+  image: text("image"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

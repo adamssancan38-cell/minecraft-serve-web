@@ -1,18 +1,43 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { db, pool } from "@/db";
 import { comments } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { desc, sql } from "drizzle-orm";
 import nodemailer from "nodemailer";
 
 const esc = (v: string) =>
   String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
+// Imágenes permitidas en los comentarios (data URL, máx. ~3 MB en base64)
+const IMAGE_RE = /^data:image\/(png|jpeg|gif|webp);base64,[A-Za-z0-9+/=]+$/;
+const MAX_IMAGE_CHARS = 3_000_000;
+
+// Agrega la columna "image" si la base de datos todavía no la tiene
+// (así no hace falta correr una migración a mano).
+let imageColumnReady: Promise<unknown> | null = null;
+function ensureImageColumn() {
+  imageColumnReady ??= pool
+    .query("ALTER TABLE comments ADD COLUMN IF NOT EXISTS image text")
+    .catch((err) => {
+      imageColumnReady = null;
+      throw err;
+    });
+  return imageColumnReady;
+}
+
 export async function GET() {
   try {
+    await ensureImageColumn();
     const allComments = await db
-      .select()
+      .select({
+        id: comments.id,
+        name: comments.name,
+        email: comments.email,
+        message: comments.message,
+        createdAt: comments.createdAt,
+        hasImage: sql<boolean>`${comments.image} is not null`,
+      })
       .from(comments)
       .orderBy(desc(comments.createdAt))
       .limit(50);
@@ -29,6 +54,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { name, email, message } = body;
+    const image: string | null = body.image ? String(body.image) : null;
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -37,11 +63,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (image && (image.length > MAX_IMAGE_CHARS || !IMAGE_RE.test(image))) {
+      return NextResponse.json(
+        { error: "La imagen no es válida o es demasiado pesada (máx. 2 MB)" },
+        { status: 400 }
+      );
+    }
+
+    await ensureImageColumn();
+
     // Guardar en la base de datos
-    const [newComment] = await db
+    const [saved] = await db
       .insert(comments)
-      .values({ name, email, message })
+      .values({ name, email, message, image })
       .returning();
+    const { image: _omit, ...newComment } = saved;
+    void _omit;
+
+    // Imagen adjunta para el correo del administrador
+    const imgMatch = image?.match(/^data:image\/(png|jpeg|gif|webp);base64,(.+)$/);
+    const attachment = imgMatch
+      ? { ext: imgMatch[1] === "jpeg" ? "jpg" : imgMatch[1], content: imgMatch[2] }
+      : null;
 
     // Enviar correo electrónico (Resend primero; SMTP como respaldo)
     try {
@@ -55,6 +98,7 @@ export async function POST(request: NextRequest) {
           <p><strong>Correo:</strong> ${esc(email)}</p>
           <p><strong>Mensaje:</strong></p>
           <p style="background: #1a1a1a; padding: 10px; border: 1px solid #555;">${esc(message)}</p>
+          ${attachment ? "<p><strong>🖼 Incluye una imagen o GIF (va adjunta).</strong></p>" : ""}
           <hr style="border-color: #4CAF50;" />
           <p style="font-size: 12px; color: #888;">Enviado desde Server de Minecraft para los Papupanas</p>
         </div>
@@ -73,6 +117,9 @@ export async function POST(request: NextRequest) {
             reply_to: String(email),
             subject,
             html,
+            ...(attachment
+              ? { attachments: [{ filename: `imagen.${attachment.ext}`, content: attachment.content }] }
+              : {}),
           }),
         });
         if (!res.ok) {
@@ -96,6 +143,13 @@ export async function POST(request: NextRequest) {
             to: adminEmail,
             subject,
             html,
+            ...(attachment
+              ? {
+                  attachments: [
+                    { filename: `imagen.${attachment.ext}`, content: attachment.content, encoding: "base64" },
+                  ],
+                }
+              : {}),
           });
         }
       }
