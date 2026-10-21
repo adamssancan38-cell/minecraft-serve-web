@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Server de Minecraft para los Papupanas",
   icons: { icon: "/img/creeper.png" },
   description:
-    "Servidor privado de Minecraft para los jugadores de Minecraft y los Papupanas. Actualizaciones y evento el 28 de Diciembre.",
+    "Servidor privado de Minecraft para los jugadores de Minecraft y los Papupanas. Actualizaciones y evento el 13 de Diciembre.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

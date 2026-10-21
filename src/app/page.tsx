@@ -2,37 +2,38 @@ import Countdown from "@/components/Countdown";
 import CommentsSection from "@/components/CommentsSection";
 import BackgroundMusic from "@/components/BackgroundMusic";
 import FloatingMobs from "@/components/FloatingMobs";
+import HalloweenWebs from "@/components/HalloweenWebs";
 
 const TEAM = [
   {
     name: "Adams",
     photo: "adams",
     role: "⚙️ Developer & Admin",
-    bio: "Creó el sitio, administra el server y es el único con permiso para decir “en mi PC sí funciona”. Si algo se rompe, fue el caché.",
+    bio: "Developer y admin. Programa a las 3 a.m., rompe el sitio a las 3:05 y lo arregla a las 3:06 diciendo que era “a propósito”. Si algo funciona, fue él; si algo falla, fue el caché.",
   },
   {
-    name: "Jimmy Alaba",
+    name: "Jimmy Álava",
     photo: "jimmy",
     role: "🎬 Editor de audio y video",
-    bio: "Corta, pega y le pone música épica a todo. Si el server se cae, lo convierte en un tráiler.",
+    bio: "Editor de audio y video. Le pone música épica hasta a cuando te caes al vacío. Si lo dejas, convierte a un creeper en película de Hollywood.",
   },
   {
     name: "Carlos Alberto “Culo Abierto”",
     photo: "carlos",
     role: "⚔️ Cofundador",
-    bio: "Jugador promedio: todo chill, todo bacán. Duerme en la cancha con el inventario lleno y si lo invitas a pelear responde “ahorita, déjame descansar”. Cobra en manzanas doradas.",
+    bio: "Jugador promedio: todo chill, todo bacán. Duerme en la cancha con el inventario lleno y, si lo invitas a pelear, responde “ahorita, déjame descansar”. Cobra en manzanas doradas.",
   },
   {
     name: "Donovan Suárez",
     photo: "donovan",
     role: "🤡 Cofundador",
-    bio: "Su foto lo dice todo: llegó para animar el chat. Es el más serio del server, aunque no lo parezca.",
+    bio: "Su foto es un payaso y aun así es de los más serios del server. Llegó para animar el chat y se queda porque ni los creepers se atreven a explotarlo.",
   },
   {
     name: "“Michael Jackson”",
     photo: "michael",
     role: "🕺 Cofundador",
-    bio: "Siempre te mira como si supiera lo que hiciste en el server. Aparece de la nada: no se sabe si es moonwalk o lag.",
+    bio: "Siempre te mira como si supiera quién se robó los diamantes. Aparece de la nada: no se sabe si es moonwalk o lag.",
   },
 ];
 
@@ -41,6 +42,7 @@ export default function Home() {
     <div className="min-h-screen text-white relative overflow-hidden">
       <BackgroundMusic />
       <FloatingMobs />
+      <HalloweenWebs />
 
       <div className="relative z-10">
         {/* ========== HEADER / HERO ========== */}
@@ -109,7 +111,7 @@ export default function Home() {
               🕐 CUENTA REGRESIVA
             </h2>
             <p className="inline-block bg-black/70 px-3 py-1 text-[#E0E0E0] font-mono mb-8 text-sm">
-              Faltan para el <span className="text-[#4CAF50] font-bold">28 de Diciembre</span>
+              Faltan para el <span className="text-[#4CAF50] font-bold">13 de Diciembre</span>
             </p>
             <Countdown />
           </div>
@@ -209,7 +211,7 @@ export default function Home() {
               }}
             >
               <p className="text-[#4CAF50] font-mono text-sm tracking-wide">
-                📅 <strong>28 de Diciembre</strong> — ¡La fecha del
+                📅 <strong>13 de Diciembre</strong> — ¡La fecha del
                 renacimiento del servidor! ¡Prepárate!
               </p>
             </div>

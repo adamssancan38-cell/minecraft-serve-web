@@ -12,11 +12,11 @@ interface TimeLeft {
 function calculateTimeLeft(): TimeLeft {
   const now = new Date();
   let targetYear = now.getFullYear();
-  let targetDate = new Date(targetYear, 11, 28, 0, 0, 0); // Dec 28
+  let targetDate = new Date(targetYear, 11, 13, 0, 0, 0); // Dec 13
 
-  // Si ya pasó el 28 de dic de este año, contar para el próximo año
+  // Si ya pasó el 13 de dic de este año, contar para el próximo año
   if (now > targetDate) {
-    targetDate = new Date(targetYear + 1, 11, 28, 0, 0, 0);
+    targetDate = new Date(targetYear + 1, 11, 13, 0, 0, 0);
   }
 
   const difference = targetDate.getTime() - now.getTime();

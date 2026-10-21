@@ -87,3 +87,15 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .mob-float { animation: none; }
 }
+
+/* Halloween: las patitas de las arañas se mueven un poquito */
+@keyframes spider-wiggle {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.92); }
+}
+.spider-legs {
+  animation: spider-wiggle 0.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .spider-legs { animation: none; }
+}
