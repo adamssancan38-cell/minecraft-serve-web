@@ -114,6 +114,37 @@ export default function Home() {
               Faltan para el <span className="text-[#4CAF50] font-bold">13 de Diciembre</span>
             </p>
             <Countdown />
+
+            {/* ===== VERSIÓN DE PRUEBA (temporal) ===== */}
+            <div
+              className="mt-10 mx-auto max-w-xl p-5 bg-black/70 border-4 border-[#FFC107] text-center"
+              style={{ boxShadow: "4px 4px 0 #0a0a0a" }}
+            >
+              <p className="text-[#FFC107] font-mono font-bold text-sm tracking-wider mb-3">
+                🧪 VERSIÓN DE PRUEBA
+              </p>
+              <p className="text-[#E0E0E0] font-mono text-sm mb-3">
+                Versión: <span className="text-[#4CAF50] font-bold">1.21.1 NeoForge</span>
+              </p>
+              <p className="text-[#BDBDBD] font-mono text-xs sm:text-sm leading-relaxed mb-4">
+                Esto es solo una versión de prueba. Todavía no es la fase final.
+                Es únicamente para los usuarios que deseen ingresar con la
+                siguiente dirección IP:
+              </p>
+              <p className="inline-block bg-[#1a1a1a] border-2 border-[#4a3728] px-3 py-2 text-[#4CAF50] font-mono font-bold text-sm sm:text-base break-all select-all mb-4">
+                tissues-priority.tun.ply.gg
+              </p>
+              <div>
+                <a
+                  href="https://drive.google.com/drive/folders/1P6OR-Y_fRU69Ov1TB2Up1fT-3crvScEZ?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-sm text-[#FFC107] underline hover:text-[#4CAF50]"
+                >
+                  📁 Ver los mods del servidor (Google Drive)
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
